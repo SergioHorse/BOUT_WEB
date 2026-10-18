@@ -4,7 +4,7 @@ from . import views
 
 urlpatterns = [
     path(
-        'engine/register',
+        'register',
         views.register_engine,
         name='register_engine',
     ),

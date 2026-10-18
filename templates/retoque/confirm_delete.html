@@ -1,0 +1,15 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+<h1 class="h3 mb-3">Eliminar retoque #{{ retoque.pk }}</h1>
+
+<div class="alert alert-warning">
+  ¿Seguro que quieres eliminar el retoque <strong>{{ retoque }}</strong>? Esta acción no se puede deshacer.
+</div>
+
+<form method="post">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+  <a href="{% url 'retoque:detail' retoque.pk %}" class="btn btn-outline-secondary">Cancelar</a>
+</form>
+{% endblock %}

@@ -133,8 +133,9 @@ MAILERS = {
     },
 }
 
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = '/retoques/'
+LOGOUT_REDIRECT_URL = 'login'
 
-LOGIN_REDIRECT_URL = '/zaq/registrar'
-LOGIN_URL = '/accounts/login/'
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True

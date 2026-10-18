@@ -2,13 +2,11 @@ from django.contrib import admin
 from django import forms as django_forms
 from .models import Retoque, EstadoRetoque, ImputacionRetoque, CampoListado
 
-
 # Register your models here.
 
 admin.site.site_header = 'HORSE | WEB'
 admin.site.site_title = 'HORSE | WEB'
 admin.site.index_title = 'Panel de administrador'
-
 
 
 class MotivoRetoqueFilter(admin.SimpleListFilter):
@@ -27,11 +25,9 @@ class MotivoRetoqueFilter(admin.SimpleListFilter):
             .order_by('engine__details__name')
         )
 
-
         return [(motivo, motivo) for motivo in sorted(motivos) if motivo]
 
     def queryset(self, request, queryset):
-
         if self.value():
             return queryset.filter(engine__details__name=self.value()).distinct()
 
@@ -44,14 +40,15 @@ class EstadoRetoqueAdmin(admin.ModelAdmin):
 
     search_fields = ('name',)
 
+
 @admin.register(ImputacionRetoque)
 class ImputacionRetoqueAdmin(admin.ModelAdmin):
     list_display = ('name',)
     search_fields = ('name',)
 
+
 @admin.register(Retoque)
 class RetoqueAdmin(admin.ModelAdmin):
-
     exclude = ('operator',)
 
     list_display = (
@@ -59,7 +56,7 @@ class RetoqueAdmin(admin.ModelAdmin):
         'date_created', 'operator', 'date_analysis', 'allocation_retouching_cost'
     )
 
-    list_filter = ('status', 'engine__date_created', 'engine__reference', MotivoRetoqueFilter, )
+    list_filter = ('status', 'engine__date_created', 'engine__reference', MotivoRetoqueFilter,)
 
     search_fields = ('engine__code_bar', 'engine__reference', 'engine__n_engine',)
 
@@ -110,8 +107,8 @@ def obtener_opciones_campos(modelo, prefijo='', nivel=0):
 
     return opciones_campos
 
-class CampoListadoForm(django_forms.ModelForm):
 
+class CampoListadoForm(django_forms.ModelForm):
     campo = django_forms.ChoiceField(
         label='Campo',
         choices=[]
@@ -125,13 +122,12 @@ class CampoListadoForm(django_forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         self.fields['campo'].choices = [
-            ('','Seleccionar campo')
-        ] + obtener_opciones_campos(Retoque)
+                                           ('', 'Seleccionar campo')
+                                       ] + obtener_opciones_campos(Retoque)
 
 
 @admin.register(CampoListado)
 class CampoListadoAdmin(admin.ModelAdmin):
-
     form = CampoListadoForm
 
     list_display = (
@@ -152,7 +148,6 @@ class CampoListadoAdmin(admin.ModelAdmin):
         'id'
     )
 
-
     def has_module_permission(self, request, obj=None):
         return request.user.is_superuser and request.user.is_active
 
@@ -167,11 +162,3 @@ class CampoListadoAdmin(admin.ModelAdmin):
 
     def has_add_permission(self, request, obj=None):
         return request.user.is_superuser and request.user.is_active
-
-
-
-
-
-
-
-

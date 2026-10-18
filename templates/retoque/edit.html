@@ -1,31 +1,32 @@
-{% extends "layouts/base.html" %}
+{#{% extends "layouts/base.html" %}#}
+{##}
+{#{% block title %}#}
+{#    Detalle del retoque#}
+{#{% endblock %}#}
+{##}
+{#{% block extra_js %}#}
+{##}
+{#{% endblock %}#}
+{##}
+{#{% block content %}#}
+{#    #}
+{#<h2>Editar retoque</h2>#}
+{#    #}
+{#<form method="POST">#}
+{##}
+{#    {% csrf_token %}#}
+{##}
+{#    {{ form.as_p }}#}
+{##}
+{#    <button type="submit" > Guardar cambios</button>#}
+{##}
+{#</form>#}
+{#    #}
+{#<div>#}
+{#<a href="{% url 'summary' %}">Volver</a>#}
+{#</div>#}
+{##}
+{##}
+{##}
+{#{% endblock %}#}
 
-{% block title %}
-    Detalle del retoque
-{% endblock %}
-
-{% block extra_js %}
-
-{% endblock %}
-
-{% block content %}
-    
-<h2>Editar retoque</h2>
-    
-<form method="POST">
-
-    {% csrf_token %}
-
-    {{ form.as_p }}
-
-    <button type="submit" > Guardar cambios</button>
-
-</form>
-    
-<div>
-<a href="{% url 'summary' %}">Volver</a>
-</div>
-
-
-
-{% endblock %}
