@@ -1,0 +1,246 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}
+    Listado de retoques
+{% endblock %}
+
+{% block extra_js %}
+    
+<script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+
+        const tabla = document.getElementById('tablaRetoque');
+        const buscador = document.getElementById('buscador_retoque');
+        const filtros = document.querySelectorAll('.filtro-columnas');
+        const cabeceras = document.querySelectorAll('.cabecera-ordenable');
+        const filtrosFecha = document.querySelectorAll('.filtro-fecha');
+        
+        if (!tabla) {
+            console.error('ERROR: No encuentra el tabla');
+            return;
+        }
+        
+        const tbody = tabla.querySelector('tbody');
+        
+        const normalizar = t =>
+            t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+
+        function filtrarTabla() {
+
+            const textoGeneral = normalizar(buscador.value);
+            let visibles = 0;
+
+            tbody.querySelectorAll("tr:not(.fila-vacia):not(.sin-resultados)").forEach(fila => {
+
+                const celdas = Array.from(fila.querySelectorAll('td'));
+                const coincideGeneral = celdas.some(td =>
+                    normalizar(td.textContent).includes(textoGeneral));
+
+                const coincideColumnas = Array.from(filtros).every(f => {
+                    const celda = celdas[f.dataset.col];
+                    return celda && normalizar(celda.textContent)
+                        .includes(normalizar(f.value));
+                    
+                });
+                const coincideFechas = Array.from(filtrosFecha).every(grupo => {
+                    const [desde, hasta] = grupo.querySelectorAll('input');
+                    if (!desde.value && !hasta.value) return true;
+                    const celda = celdas[grupo.dataset.col];
+                    const dia = celda ? (celda.dataset.orden || '').slice(0, 10) : '';
+                    if (!dia) return false;
+                    return (!desde.value || dia >= desde.value) && (!hasta.value || dia <= hasta.value);
+
+                });
+                
+                
+
+                const mostrar = coincideGeneral && coincideColumnas && coincideFechas;
+                fila.style.display = mostrar ? '' : 'none';
+                if (mostrar) visibles++;
+
+            });
+
+            const msg = tbody.querySelector('.sin-resultados');
+            if (msg) msg.style.display = visibles === 0 ? '' : 'none';
+
+        }
+
+            if (!tbody.querySelector('.fila-vacia')) {
+                const tr = document.createElement('tr');
+                tr.className = 'sin-resultados';
+                tr.style.display = 'none';
+                tr.innerHTML = `<td colspan="${tabla.querySelectorAll('thead tr:first-child th').length}">
+                    No hay resultados para ese filtro</td>;`
+                tbody.appendChild(tr);
+            }
+
+            buscador.addEventListener('input', filtrarTabla);
+            filtros.forEach(f => f.addEventListener('input', filtrarTabla));
+            filtrosFecha.forEach(g => g.addEventListener('input', filtrarTabla));
+
+            cabeceras.forEach((cabecera, indice) => {
+                let ascendente = true;
+                cabecera.style.cursor = 'pointer';
+                cabecera.addEventListener('click', () => {
+                    const filas = Array.from(
+                        tbody.querySelectorAll('tr:not(.fila-vacia):not(.sin-resultados)'));
+                    filas.sort((a, b) => {
+                        const celdaA = a.cells[indice], celdaB = b.cells[indice];
+                        const valorA = (celdaA.dataset.orden || celdaA.textContent).trim();
+                        const valorB = (celdaB.dataset.orden || celdaB.textContent).trim();
+                        return valorA.localeCompare(valorB, 'es',
+                            {numeric: true, sensitivity: 'base'}) * (ascendente ? 1 : -1);
+
+                    });
+                    filas.forEach(f => tbody.appendChild(f));
+                    ascendente = !ascendente;
+
+                });
+
+            });
+        });
+
+
+
+        
+</script>
+    
+    
+    
+
+{% endblock %}
+
+{% block content %}
+    
+<div class="mb-3 ">
+
+    <input
+    type="text"
+    style="display: none"
+    id="buscador_retoque"
+    class="form-control"
+    placeholder="Buscar retoques en general">
+
+</div>
+
+
+<div style="overflow-x: auto;">
+
+
+    <table class="table table-striped table-hover" id="tablaRetoque">
+    <thead>
+        <tr>
+
+            {% for columna in columnas %}
+            <th class="cabecera-ordenable">
+                {{columna.titulo}}
+                <span>⇅</span>
+            </th>
+            {% endfor %}
+            <th>Detalles</th>
+            <th>Editar</th>
+            
+        </tr>
+    
+        <tr class="fila-filtros">
+            {% for columna in columnas %}
+                <th>
+                {% if columna.es_fecha %}
+                    <div class="filtro-fecha d-flex gap-1" data-col="{{ forloop.counter0 }}">
+                        <input type="date" class="form-control" title="Desde">
+                        <input type="date" class="form-control" title="Hasta">
+                    </div>
+                {% else %}
+                    <input type="text" 
+                           class="form-control filtro-columnas"
+                           data-col="{{ forloop.counter0 }}"
+                           title="Filtar...">
+                {% endif %}
+                </th>
+            {% endfor %}
+        
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    
+    <tbody>
+    
+    
+        {% for fila in filas %}
+            
+            <tr>
+                {% for valor in fila.valores %}
+                    
+{#                    <td>{{valor|default_if_none:"-"}}</td>#}
+                    <td data-order="{{ valor|date:'Y-m-d H:i:s' }}">{{ valor|default_if_none:"-" }}</td>
+                    
+                {% endfor %}
+            
+                <td>
+                    <a href="{% url 'detalle' fila.pk %}">
+                       Ver detalle
+                    </a>
+                </td>
+                <td>
+                    <a href="{% url 'edit' fila.pk %}">
+                       Editar
+                    </a>
+                </td>
+            </tr>
+            
+            {% empty %}
+            
+            <tr class="fila-vacia">
+                <td colspan="{{ columnas|length|add:2 }}">
+                    No hay retoques disponibles
+                </td>
+            </tr>
+            
+        {% endfor %}    
+    
+    
+    
+    </tbody>
+
+</table>
+
+{% if page_obj.paginator.num_pages > 1 %}
+
+<nav class="mt-4">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                Anterior
+            </a>
+        </li>
+        {% endif %}
+    
+        {% for numero in page_obj.paginator.page_range %}
+        <li class="page-item {% if page_obj.number == numero %}active{% endif %}">
+            <a class="page-link" href="?page={{ numero }}"></a>
+        </li>
+        {% endfor %}
+        
+        {% if page_obj.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+        </li>
+        {% endif %}
+    
+    </ul>
+</nav>
+
+{% endif %}
+
+<p class="text-muted text-center">
+    Página {{ page_obj.number }} de {{ page.paginator.num_pages }}
+    -Total {{ page_obj.paginator.count }}retoques
+</p>
+
+</div>
+    
+{% endblock %}

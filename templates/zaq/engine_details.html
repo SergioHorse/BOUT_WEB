@@ -1,0 +1,192 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}
+    Detalles del motor | ZAQ
+{% endblock %}
+
+{% block extra_css %}
+    
+<style>
+    .detail-label {
+        display: block;
+        cursor: pointer;
+    }
+    
+    .detail-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 80px;
+        padding: 15px;
+        border: 2px solid black;
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.5);
+        font-size: 20px;
+        font-weight: 500;
+        text-align: center;
+        transition: 0.15s;
+        
+    }
+    
+    input.btn-check {
+        position:absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        overflow: hidden;
+    }
+    
+    .detail-label input:checked + .detail-button {
+        background-color: rgba(255, 255, 255, 0.5);
+        border: 2px solid black;
+        color: black;
+        font-weight: bold;
+        
+    }
+    
+    .detail-label input:focus-visible + .detail-button {
+        outline: 3px solid rgba(255, 255, 255, 0.5);
+        outline-offset: 3px;
+    }
+    
+    .detail-button:hover {
+        background-color: rgba(255, 255, 255, 0.5);
+    }
+    
+    .save-button {
+        padding: 15px;
+        font-size: 20px;
+        font-weight: bold;
+        border-radius: 5px;
+    }
+</style>
+    
+{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+    
+    <div class="col-lg-9">
+        <div class="zaq-card">
+            <!-- Título -->
+            <h2 class="fw-bold text-center mb-4">
+                {{ category.name }}
+            </h2>
+            
+            <!-- Categoría -->
+            <div
+                class="p-3 rounded mb-4 text-center fw-bold"
+                style="background-color: {{ category.color }}; color: #111;">
+                Categoría seleccionada: {{ category.name }}
+            </div>
+            
+            <!-- Errores -->
+            {% if form.errors %}
+                <div class="alert alert-danger" role="alert">
+                    <strong>Revisa el formulario</strong>
+                    {{ form.errors }}
+                </div>
+            {% endif %}
+        
+            <form method="POST">
+                {% csrf_token %}
+                
+                <!-- Código de barras -->
+                <div class="mb-3">
+                    <label for="code_bar" class="form-label fw-bold">
+                        Código de barras
+                    </label>
+                    <input
+                    type="text"
+                    name="code_bar"
+                    id="code_bar"
+                    class="form-control form-control-lg"
+                    value="{{ form.code_bar.value | default_if_none:'' }}"
+                    readonly
+                    required
+                    >
+                </div>
+                
+                <h5 class="fw-bold mb-3">
+                    Seleccionar fallos o retoques
+                </h5>
+                
+                <p class="text-muted">
+                    Puedes seleccionar varios detalles
+                </p>
+                
+                <!--Detalles -->
+                <div class="d-flex justify-content-center flex-wrap" style="gap:40px;">
+                    {% for detail in form.fields.details.queryset %}
+                        
+                        <div class="text-center">
+                        
+                            <input
+                                type="checkbox"
+                                class="btn-check"
+                                name="details"
+                                value="{{ detail.id }}"
+                                id="detail_{{ detail.id }}"
+                                autocomplete="off"
+                                {% if detail.pk in form.details.value %}
+                                    checked
+                                {% endif %}
+                            >
+                            
+                            
+                        
+                            <label
+                                for="detail_{{ detail.id }}"
+                                class="btn btn-outline-dark d-inline-flex align-items-center justify-content-center"
+                                style="
+                                    width: 250px;
+                                    height: 150px;
+                                    max-width: 100%;
+                                    border: 4px solid black;"
+                            >
+                                {{ detail.name }}
+                                
+                            </label>
+                        </div>
+                        
+                        {% empty %}
+                        
+                        <div class="col-12">
+                            
+                            <div class="alert alert-warning" role="alert">
+                                Esta categoría no tiene detalles activos.
+                            </div>
+                        
+                        </div>
+                        
+                    {% endfor %}
+                </div>
+            
+                <!-- Botones -->
+                <div class="row g-3 mt-4">
+                    <div class="col-md-4">
+                        <a
+                            href="{% url 'register_engine' %}"
+                            class="btn btn-outline-secondary btn-lg w-100">
+                            Volver
+                        </a>
+                    </div>
+                    
+                    <div class="col-md-8">
+                        <button
+                            type="submit"
+                            class="btn btn-primary save-button w-100">
+                            Guardar motor
+                        </button>
+                    </div>
+                </div>
+            
+            </form>
+        
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
