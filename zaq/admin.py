@@ -1,7 +1,11 @@
 from django.contrib import admin
+from rangefilter.filters import DateTimeRangeFilter
 from .models import Engine, Detail, Category
 
+from simple_history.admin import SimpleHistoryAdmin
+
 # Register your models here.
+
 
 class MotivoZaqFilter(admin.SimpleListFilter):
     title = 'Detalles fallo'
@@ -53,13 +57,13 @@ class CategoryAdmin(admin.ModelAdmin):
     list_per_page = 20
 
 @admin.register(Engine)
-class EngineAdmin(admin.ModelAdmin):
+class EngineAdmin(SimpleHistoryAdmin):
     """
     Motor
     """
     list_display = ('code_bar','reference', 'n_engine', 'category', 'show_details',
                    'operator', 'date_created')
-    list_filter = ('category', 'date_created', 'reference', MotivoZaqFilter)
+    list_filter = ('category', ('date_created', DateTimeRangeFilter), 'reference', MotivoZaqFilter)
     search_fields = ('code_bar', )
     readonly_fields = ('date_created',)
     filter_horizontal = ('details',)

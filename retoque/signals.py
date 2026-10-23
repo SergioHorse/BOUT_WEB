@@ -10,7 +10,6 @@ from .models import Retoque, EstadoRetoque
 def check_category(sender, instance, **kwargs):
     instance._pre_category = None
     if instance.pk:
-        # Antes: un set con un único valor. Ahora: el valor directamente.
         instance._pre_category = (
             Engine.objects.filter(pk=instance.pk)
             .values_list('category_id', flat=True)

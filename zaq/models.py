@@ -2,6 +2,8 @@ from django.db import models
 from django.conf import settings
 from django.db.models import Model
 
+from simple_history.models import HistoricalRecords
+
 
 # Create your models here.
 
@@ -72,6 +74,8 @@ class Engine(models.Model):
 
     date_created = models.DateTimeField(auto_now_add=True,
                                         verbose_name='Fecha de registro')
+
+    history = HistoricalRecords(m2m_fields=['details'])
 
     def save(self, *args, **kwargs):
         if self.code_bar:

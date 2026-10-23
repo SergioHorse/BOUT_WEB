@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'zaq.apps.ZaqConfig',
     'retoque.apps.RetoqueConfig',
+    'bancos.apps.BancosConfig',
+    'rangefilter',
+    'simple_history',
 ]
 
 MIDDLEWARE = [
@@ -49,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
 ROOT_URLCONF = 'BOUT_WEB.urls'
@@ -134,7 +138,7 @@ MAILERS = {
 }
 
 LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = '/retoques/'
+LOGIN_REDIRECT_URL = '/accounts/login'
 LOGOUT_REDIRECT_URL = 'login'
 
 

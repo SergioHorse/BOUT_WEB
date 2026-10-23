@@ -2,6 +2,8 @@ from django.contrib import admin
 from django import forms as django_forms
 from .models import Retoque, EstadoRetoque, ImputacionRetoque, CampoListado
 
+from simple_history.admin import SimpleHistoryAdmin
+
 # Register your models here.
 
 admin.site.site_header = 'HORSE | WEB'
@@ -48,8 +50,9 @@ class ImputacionRetoqueAdmin(admin.ModelAdmin):
 
 
 @admin.register(Retoque)
-class RetoqueAdmin(admin.ModelAdmin):
-    exclude = ('operator',)
+class RetoqueAdmin(SimpleHistoryAdmin):
+
+
 
     list_display = (
         'code_bar', 'reference', 'n_engine', 'show_details', 'status', 'observations',
@@ -59,6 +62,8 @@ class RetoqueAdmin(admin.ModelAdmin):
     list_filter = ('status', 'engine__date_created', 'engine__reference', MotivoRetoqueFilter,)
 
     search_fields = ('engine__code_bar', 'engine__reference', 'engine__n_engine',)
+
+    readonly_fields = ('date_created', 'date_analysis', 'operator', 'status', )
 
     list_per_page = 20
 
