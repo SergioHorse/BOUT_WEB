@@ -1,0 +1,229 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="h3 mb-3">{{ titulo }}</h1>
+
+    
+<div class="container mt-5">
+
+    <div
+            class="d-flex justify-content-end mb-3"
+    >
+        <a href="{% url 'bancos:summary' %}" class="btn btn-primary">Ver rodajes</a>
+    </div>
+
+    
+
+
+    <div class="card p-4 shadow-sm">
+
+        <h3>Registrar rodaje</h3>
+
+        <form method="POST" id="formRodaje">
+            {% csrf_token %}
+
+            {{ form.non_field_errors }}
+
+            <div class="mb-3">
+                {{ form.code_bar.label_tag }}
+                {{ form.code_bar }}
+                {{ form.code_bar.errors }}
+            </div>
+
+            <div id="mensaje" class="mb-3"></div>
+
+            <!-- Datos del motor -->
+            <div id="datosMotor"
+                 class="card bg-light mb-4 d-none">
+
+                <div class="card-body">
+
+                    <h5>Datos del motor</h5>
+
+                    <p>
+                        <strong>Código de barras:</strong>
+                        <span id="dato_codigo"></span>
+                    </p>
+
+                    <p>
+                        <strong>Referencia:</strong>
+                        <span id="dato_referencia"></span>
+                    </p>
+
+                    <p>
+                        <strong>Nº motor:</strong>
+                        <span id="dato_numero"></span>
+                    </p>
+
+                    <p>
+                        <strong>Categoría:</strong>
+                        <span id="dato_categoria"></span>
+                    </p>
+
+                    <p>
+                        <strong>Detalles:</strong>
+                        <span id="dato_detalles"></span>
+                    </p>
+
+                    <p>
+                        <strong>Operario:</strong>
+                        <span id="dato_operario"></span>
+                    </p>
+
+                    <p>
+                        <strong>Fecha de registro:</strong>
+                        <span id="dato_fecha"></span>
+                    </p>
+
+                </div>
+            </div>
+
+            <div class="mb-3">
+                {{ form.resultado.label_tag }}
+                {{ form.resultado }}
+                {{ form.resultado.errors }}
+            </div>
+
+            <div class="mb-3">
+                {{ form.observations.label_tag }}
+                {{ form.observations }}
+                {{ form.observations.errors }}
+            </div>
+
+            <button
+                type="submit"
+                id="btnGuardar"
+                class="btn btn-primary"
+                disabled
+            >
+                Guardar rodaje
+            </button>
+
+        </form>
+    </div>
+</div>
+
+<script>
+const campoCodigo = document.getElementById(
+    'id_codigo_barras'
+);
+
+const datosMotor = document.getElementById(
+    'datosMotor'
+);
+
+const mensaje = document.getElementById('mensaje');
+const btnGuardar = document.getElementById('btnGuardar');
+
+let temporizador;
+let consultaActual = 0;
+
+function limpiarMotor() {
+    datosMotor.classList.add('d-none');
+    btnGuardar.disabled = true;
+}
+
+campoCodigo.addEventListener('input', function () {
+
+    clearTimeout(temporizador);
+
+    const codigo = campoCodigo.value.trim();
+    const numeroConsulta = ++consultaActual;
+
+    limpiarMotor();
+    mensaje.textContent = '';
+
+    if (!codigo) {
+        return;
+    }
+
+    temporizador = setTimeout(async function () {
+
+        try {
+            const url = (
+                "{% url 'bancos:buscar_motor' %}" +
+                "?codigo=" + encodeURIComponent(codigo)
+            );
+
+            const respuesta = await fetch(url);
+
+            const datos = await respuesta.json();
+
+            // Ignorar respuestas de búsquedas anteriores
+            if (
+                numeroConsulta !== consultaActual ||
+                campoCodigo.value.trim() !== codigo
+            ) {
+                return;
+            }
+
+            if (!respuesta.ok || !datos.encontrado) {
+                mensaje.textContent = (
+                    datos.error || 'Motor no encontrado'
+                );
+                mensaje.className = 'text-danger mb-3';
+                limpiarMotor();
+                return;
+            }
+
+            const motor = datos.motor;
+            const detalles = motor.details;
+
+            document.getElementById(
+                'dato_codigo'
+            ).textContent = motor.code_bar;
+
+            document.getElementById(
+                'dato_referencia'
+            ).textContent = motor.reference;
+
+            document.getElementById(
+                'dato_numero'
+            ).textContent = motor.n_engine;
+
+            document.getElementById(
+                'dato_categoria'
+            ).textContent = motor.category;
+
+            {#document.getElementById(#}
+            {#    'dato_detalles'#}
+            {#).textContent = motor.details.join(', ') || 'Sin detalles';#}
+            document.getElementById('dato_detalles').textContent = 
+                Array.isArray(detalles)? detalles.join(', ') || 'Sin detalles'
+                    : String(detalles ?? '').trim() || 'Sin detalles'
+
+            document.getElementById(
+                'dato_operario'
+            ).textContent = motor.operator;
+
+            document.getElementById(
+                'dato_fecha'
+            ).textContent = motor.date_created;
+
+            datosMotor.classList.remove('d-none');
+            btnGuardar.disabled = false;
+
+            mensaje.textContent = 'Motor encontrado';
+            mensaje.className = 'text-success mb-3';
+
+        } catch (error) {
+
+            if (numeroConsulta !== consultaActual) {
+                return;
+            }
+
+            limpiarMotor();
+            mensaje.textContent = 'Error al consultar el motor';
+            mensaje.className = 'text-danger mb-3';
+        }
+
+    }, 300);
+});
+
+// Consultar también si el formulario vuelve con errores
+if (campoCodigo.value.trim()) {
+    campoCodigo.dispatchEvent(new Event('input'));
+}
+</script>
+
+{% endblock %}

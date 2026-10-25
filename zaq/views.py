@@ -5,13 +5,13 @@ from django.contrib import messages
 from .models import Category
 from .forms import EngineForm
 
+
 # Create your views here.
 
 @login_required
 def register_engine(request):
-
     categories = Category.objects.filter(
-        active=True).order_by('order','name')
+        active=True).order_by('order', 'name')
 
     return render(
         request,
@@ -21,9 +21,9 @@ def register_engine(request):
         }
     )
 
+
 @login_required
 def engine_details(request, category_id):
-
     category = get_object_or_404(Category,
                                  pk=category_id,
                                  active=True)
@@ -47,7 +47,6 @@ def engine_details(request, category_id):
 
             return redirect('register_engine')
 
-
     else:
         code_bar = request.GET.get('code_bar')
         form = EngineForm(
@@ -62,5 +61,3 @@ def engine_details(request, category_id):
             'category': category,
         }
     )
-
-

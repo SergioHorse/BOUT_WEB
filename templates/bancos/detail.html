@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1 class="h3">Rodaje #{{ rodaje.pk }}</h1>
+  <div class="d-flex gap-2">
+    <a href="{% url 'bancos:edit' rodaje.pk %}" class="btn btn-primary">Editar</a>
+    <a href="{% url 'bancos:delete' rodaje.pk %}" class="btn btn-outline-danger">Eliminar</a>
+    <a href="{% url 'bancos:summary' %}" class="btn btn-outline-secondary">Volver</a>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <dl class="row mb-0">
+      {% for campo in campos %}
+        <dt class="col-sm-4">{{ campo.clave }}</dt>
+        <dd class="col-sm-8">
+          {% if campo.valor is None or campo.valor == '' %}
+            <span class="text-muted">—</span>
+          {% else %}
+            {{ campo.valor|default_if_none:"—" }}
+          {% endif %}
+        </dd>
+      {% empty %}
+        <dd class="col-12 text-muted">Sin datos.</dd>
+      {% endfor %}
+    </dl>
+  </div>
+</div>
+{% endblock %}

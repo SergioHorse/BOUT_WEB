@@ -4,8 +4,33 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="95156ea8-77d4-4629-bc5a-bc29b0505349" name="Changes" comment="Creación en los admin los calendarios e historicos">
+    <list default="true" id="95156ea8-77d4-4629-bc5a-bc29b0505349" name="Changes" comment="commit general">
+      <change afterPath="$PROJECT_DIR$/bancos/forms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bancos/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/bancos/confirm_delete.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/bancos/detail.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/bancos/form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/bancos/summary.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_24_10_2026_10_31__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_24_10_2026_10_31__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BOUT_WEB/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/BOUT_WEB/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bancos/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/bancos/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bancos/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/bancos/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bancos/signals.py" beforeDir="false" afterPath="$PROJECT_DIR$/bancos/signals.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bancos/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/bancos/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/retoque/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/retoque/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/components/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/navbar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/layouts/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/registration/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/retoque/confirm_delete.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/retoque/confirm_delete.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/retoque/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/retoque/detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/retoque/form.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/retoque/form.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/retoque/summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/retoque/summary.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/zaq/engine_details.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/zaq/engine_details.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/zaq/register_engine.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/zaq/register_engine.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zaq/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/zaq/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zaq/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/zaq/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zaq/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/zaq/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,8 +44,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Jupyter Notebook" />
-        <option value="HTML File" />
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -33,12 +58,12 @@
     &quot;assignee&quot;: &quot;SergioHorse&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/SergioHorse/BOUT_WEB.git&quot;,
-    &quot;accountId&quot;: &quot;d22419f4-adca-4c66-aae3-4ce8c06d9a5d&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/SergioHorse/BOUT_WEB.git",
+    "accountId": "40533541-5238-4f31-b19e-f71b5f05945c"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -57,6 +82,7 @@
     &quot;RunOnceActivity.pycharm.django.structure.promotion.once.per.project&quot;: &quot;true&quot;,
     &quot;django.template.preview.state&quot;: &quot;SHOW_EDITOR_AND_PREVIEW&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/sergi/PycharmProjects/RepasoIA/BOUT_WEB/templates/bancos&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -66,6 +92,14 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\sergi\PycharmProjects\RepasoIA\BOUT_WEB\templates\bancos" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\sergi\PycharmProjects\RepasoIA\BOUT_WEB\templates" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="BOUT_WEB" type="Python.DjangoServer" factoryName="Django server">
       <module name="BOUT_WEB" />
@@ -96,8 +130,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-PY-242.26775.22" />
-        <option value="bundled-python-sdk-9f73701ac511-399fe30bd8c1-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-242.26775.22" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-PY-241.17890.14" />
+        <option value="bundled-python-sdk-5b207ade9991-7e9c3bbb6e34-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.17890.14" />
       </set>
     </attachedChunks>
   </component>
@@ -121,6 +155,7 @@
       <workItem from="1792300735949" duration="26000" />
       <workItem from="1792421744999" duration="9806000" />
       <workItem from="1792770598450" duration="9402000" />
+      <workItem from="1792914847657" duration="17978000" />
     </task>
     <task id="LOCAL-00001" summary="Creación en los admin los calendarios e historicos">
       <option name="closed" value="true" />

@@ -4,6 +4,7 @@ from .models import Engine, Detail, Category
 
 from simple_history.admin import SimpleHistoryAdmin
 
+
 # Register your models here.
 
 
@@ -23,15 +24,14 @@ class MotivoZaqFilter(admin.SimpleListFilter):
             .order_by('details__name')
         )
 
-
         return [(motivo, motivo) for motivo in sorted(motivos) if motivo]
 
     def queryset(self, request, queryset):
-
         if self.value():
             return queryset.filter(details__name=self.value()).distinct()
 
         return queryset
+
 
 class DetailCategory(admin.TabularInline):
     """
@@ -49,39 +49,28 @@ class CategoryAdmin(admin.ModelAdmin):
     """
     list_display = ('name', 'color', 'active', 'order', 'icon')
     list_editable = ('active', 'order')
-    search_fields = ('name', )
+    search_fields = ('name',)
     ordering = ('order', 'name')
 
     inlines = [DetailCategory]
 
     list_per_page = 20
 
+
 @admin.register(Engine)
 class EngineAdmin(SimpleHistoryAdmin):
     """
     Motor
     """
-    list_display = ('code_bar','reference', 'n_engine', 'category', 'show_details',
-                   'operator', 'date_created')
-    list_filter = ('category', ('date_created', DateTimeRangeFilter), 'reference', MotivoZaqFilter)
-    search_fields = ('code_bar', )
+    list_display = ('code_bar', 'reference', 'n_engine', 'category', 'show_details',
+                    'operator', 'date_created', 'status',)
+    list_filter = ('category', ('date_created', DateTimeRangeFilter), 'reference', MotivoZaqFilter, 'status')
+    search_fields = ('code_bar',)
     readonly_fields = ('date_created',)
     filter_horizontal = ('details',)
 
-    list_per_page = 20
+    list_per_page = 10
 
     @admin.display(description='Fallos/Retoques')
     def show_details(self, obj):
         return ','.join(detail.name for detail in obj.details.all())
-
-
-
-
-
-
-
-
-
-
-
-

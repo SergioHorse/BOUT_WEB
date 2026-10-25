@@ -29,5 +29,6 @@ urlpatterns = [
 
     path('zaq/', include('zaq.urls')),
     path('retoques/', include('retoque.urls')),
+    path('bancos/', include('bancos.urls'))
 ]
 

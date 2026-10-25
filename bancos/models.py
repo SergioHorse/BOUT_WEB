@@ -1,8 +1,10 @@
 from django.db import models
 from django.conf import settings
 from django.utils import timezone
+from django.contrib.auth.models import Group
 
 from simple_history.models import HistoricalRecords
+
 
 # Create your models here.
 
@@ -15,12 +17,9 @@ class EstadoRodaje(models.Model):
     class Meta:
         verbose_name = 'Estado de rodaje'
         verbose_name_plural = 'Estados de rodaje'
-        permissions = [
-            ('view_estado_rodaje', 'Puede cambiar el estado de rodaje'),
-        ]
+
 
 class Rodaje(models.Model):
-
     engine = models.ForeignKey(
         'zaq.Engine',
         on_delete=models.PROTECT,
@@ -36,32 +35,27 @@ class Rodaje(models.Model):
         verbose_name='Rodador',
     )
 
-    status = models.ForeignKey(
+    resultado = models.ForeignKey(
         EstadoRodaje,
         on_delete=models.PROTECT,
         null=True,
         blank=True,
-        verbose_name='Estado actual',
+        verbose_name='Resultado',
     )
-
-    resultado = models.CharField(verbose_name='Resultado', null=True, blank=True,
-                                 choices=[('OK','OK'),('NOK','NOK')])
 
     observations = models.TextField(blank=True, null=True, verbose_name='Observaciones')
     date_analysis = models.DateTimeField(blank=True, null=True, verbose_name='Fecha de rodaje')
 
     history = HistoricalRecords()
 
-
     def save(self, *args, **kwargs):
+        self.date_analysis = timezone.now()
 
-        if self.resultado in ('OK','NOK'):
-            self.date_analysis = timezone.now()
+        if self.resultado is not None:
+            self.engine.status = self.resultado.name
+            self.engine.save(update_fields=['status'])
 
         super().save(*args, **kwargs)
-
-
-
 
     def __str__(self):
         return f'{self.engine.n_engine} - {self.engine.reference}'

@@ -17,14 +17,14 @@ def check_category(sender, instance, **kwargs):
         )
 
 
-@receiver(post_save, sender=Engine)
-def create_rodaje(sender, instance, created, **kwargs):
-    if not instance.category or instance.category.name != 'Azul':
-        return
-
-    status = EstadoRodaje.objects.filter(name='Pendiente').first()
-
-    Rodaje.objects.get_or_create(
-        engine=instance,
-        defaults={'status': status},
-    )
+# @receiver(post_save, sender=Engine)
+# def create_rodaje(sender, instance, created, **kwargs):
+#     if not instance.category or instance.category.name != 'Azul':
+#         return
+#
+#     status = EstadoRodaje.objects.filter(name='Pendiente').first()
+#
+#     Rodaje.objects.get_or_create(
+#         engine=instance,
+#         defaults={'status': status},
+#     )

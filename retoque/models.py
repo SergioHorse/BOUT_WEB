@@ -6,7 +6,6 @@ from django.utils import timezone
 from simple_history.models import HistoricalRecords
 
 
-
 class EstadoRetoque(models.Model):
     name = models.CharField(max_length=20, unique=True, verbose_name='Estado de retoque')
 
@@ -93,5 +92,3 @@ class CampoListado(models.Model):
 
     def __str__(self):
         return self.titulo
-
-

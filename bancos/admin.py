@@ -1,9 +1,11 @@
 from django.contrib import admin
+from django import forms as django_forms
 from django.utils import timezone
 from django.utils.formats import date_format
 from .models import Rodaje, EstadoRodaje
 
 from simple_history.admin import SimpleHistoryAdmin
+
 
 # Register your models here.
 
@@ -40,24 +42,22 @@ class EstadoRetoqueAdmin(admin.ModelAdmin):
 
     def has_module_permission(self, request):
         return (
-            request.user.is_superuser or request.user.has_perm('bancos.view_estado_retoque')
+                request.user.is_superuser or request.user.has_perm('bancos.view_estado_retoque')
         )
+
 
 @admin.register(Rodaje)
 class RodajeAdmin(SimpleHistoryAdmin):
-
     list_display = (
-        'code_bar', 'reference', 'n_engine', 'show_details', 'turno','resultado', 'status', 'observations',
-        'date_created', 'operator', 'date_analysis'
+        'code_bar', 'reference', 'n_engine', 'show_details', 'turno', 'resultado', 'observations',
+        'date_created', 'operator', 'date_analysis', 'status',
     )
 
-
-    list_filter = ('status', 'engine__date_created', 'engine__reference', MotivoRodajeFilter,)
+    list_filter = ('engine__date_created', 'engine__reference', MotivoRodajeFilter,)
 
     search_fields = ('engine__code_bar', 'engine__reference', 'engine__n_engine',)
 
-    readonly_fields = ('date_created', 'date_analysis', 'operator', 'status', )
-
+    readonly_fields = ('date_created', 'date_analysis', 'operator',)
 
     list_per_page = 20
 
@@ -81,7 +81,6 @@ class RodajeAdmin(SimpleHistoryAdmin):
     def date_analysis(self, obj):
         return date_format(obj.date_analysis, format='DATETIME_FORMAT')
 
-
     @admin.display(description='Motivo de rodaje')
     def show_details(self, obj):
         return ','.join(detail.name for detail in obj.engine.details.all())
@@ -90,6 +89,9 @@ class RodajeAdmin(SimpleHistoryAdmin):
     def turno(self, obj):
         return obj.engine.operator
 
+    @admin.display(description='Estado actual')
+    def status(self, obj):
+        return obj.engine.status
 
     def save_model(self, request, obj, form, change):
         if not change:
@@ -98,10 +100,11 @@ class RodajeAdmin(SimpleHistoryAdmin):
         if not obj.date_analysis:
             obj.date_analysis = timezone.now()
 
-
-        if obj.resultado == 'OK':
-            obj.status = EstadoRodaje.objects.get(name='Rodado ok')
-        elif obj.resultado == 'NOK':
-            obj.status = EstadoRodaje.objects.get(name='Rodado ok')
+        # if obj.resultado == 'OK':
+        #     obj.status = EstadoRodaje.objects.get(name='Rodado ok')
+        # elif obj.resultado == 'NOK':
+        #     obj.status = EstadoRodaje.objects.get(name='Rodado nok')
 
         super().save_model(request, obj, form, change)
+
+

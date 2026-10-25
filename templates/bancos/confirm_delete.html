@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="h3 mb-3">Eliminar rodaje #{{ rodaje.pk }}</h1>
+
+<div class="alert alert-warning">
+  ¿Seguro que quieres eliminar el retoque <strong>{{ rodaje }}</strong>? Esta acción no se puede deshacer.
+</div>
+
+<form method="post">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+  <a href="{% url 'rodaje:detail' retoque.pk %}" class="btn btn-outline-secondary">Cancelar</a>
+</form>
+{% endblock %}

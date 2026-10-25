@@ -46,8 +46,8 @@ class Detail(models.Model):
 
 
 class Engine(models.Model):
-
     code_bar = models.CharField(max_length=100,
+                                unique=True,
                                 verbose_name='Código de barras')
 
     reference = models.CharField(max_length=12,
@@ -64,8 +64,8 @@ class Engine(models.Model):
                                  verbose_name='Categoría')
 
     details = models.ManyToManyField(Detail,
-                                related_name='engines',
-                                verbose_name='Detalles seleccionados')
+                                     related_name='engines',
+                                     verbose_name='Detalles seleccionados')
 
     operator = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -75,12 +75,18 @@ class Engine(models.Model):
     date_created = models.DateTimeField(auto_now_add=True,
                                         verbose_name='Fecha de registro')
 
+    status = models.CharField(max_length=50,
+                              blank=True,
+                              null=True,
+                              default='Pendiente',
+                              verbose_name="Estado actual")
+
     history = HistoricalRecords(m2m_fields=['details'])
 
     def save(self, *args, **kwargs):
         if self.code_bar:
             if 'RTD' in self.code_bar:
-                reference, n_engine = self.code_bar.split('TD',1)
+                reference, n_engine = self.code_bar.split('TD', 1)
                 self.reference = reference
                 self.n_engine = n_engine
 
@@ -93,7 +99,3 @@ class Engine(models.Model):
 
     def __str__(self):
         return self.code_bar
-
-
-
-
