@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="95156ea8-77d4-4629-bc5a-bc29b0505349" name="Changes" comment="Creación en los admin los calendarios e historicos">
+    <list default="true" id="95156ea8-77d4-4629-bc5a-bc29b0505349" name="Changes" comment="Actualización en bbdd">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/retoque/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/retoque/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/retoque/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/retoque/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/retoque/signals.py" beforeDir="false" afterPath="$PROJECT_DIR$/retoque/signals.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/retoque/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/retoque/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/retoque/summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/retoque/summary.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/registration/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/login.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -137,7 +133,7 @@
       <workItem from="1792421744999" duration="9806000" />
       <workItem from="1792770598450" duration="9662000" />
       <workItem from="1792914847657" duration="17978000" />
-      <workItem from="1792999098331" duration="650000" />
+      <workItem from="1792999098331" duration="2476000" />
     </task>
     <task id="LOCAL-00001" summary="Creación en los admin los calendarios e historicos">
       <option name="closed" value="true" />
@@ -155,7 +151,23 @@
       <option name="project" value="LOCAL" />
       <updated>1792831203763</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Mejoras en la app de retoque">
+      <option name="closed" value="true" />
+      <created>1793003468518</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1793003468518</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Actualización en bbdd">
+      <option name="closed" value="true" />
+      <created>1793003495587</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1793003495587</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -163,6 +175,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Creación en los admin los calendarios e historicos" />
-    <option name="LAST_COMMIT_MESSAGE" value="Creación en los admin los calendarios e historicos" />
+    <MESSAGE value="Mejoras en la app de retoque" />
+    <MESSAGE value="Actualización en bbdd" />
+    <option name="LAST_COMMIT_MESSAGE" value="Actualización en bbdd" />
   </component>
 </project>

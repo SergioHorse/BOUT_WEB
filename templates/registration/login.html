@@ -13,15 +13,44 @@
       {% csrf_token %}
       <input type="hidden" name="next" value="{{ next }}">
 
-      <div class="mb-3">
-        <label for="{{ form.username.id_for_label }}" class="form-label">Usuario</label>
-        {{ form.username }}
-      </div>
-      <div class="mb-3">
-        <label for="{{ form.password.id_for_label }}" class="form-label">Contraseña</label>
-        {{ form.password }}
-      </div>
-      <button type="submit" class="btn btn-primary w-100">Entrar</button>
+{#      <div class="mb-3">#}
+{#        <label for="{{ form.username.id_for_label }}" class="form-label">Usuario</label>#}
+{#        {{ form.username }}#}
+{#      </div>#}
+{#      <div class="mb-3">#}
+{#        <label for="{{ form.password.id_for_label }}" class="form-label">Contraseña</label>#}
+{#        {{ form.password }}#}
+{#      </div>#}
+{#      <button type="submit" class="btn btn-primary w-100">Entrar</button>#}
+        <div class="row mb-3 align-items-center">
+            <div class="col-md-3">
+                <label for="{{ form.username.id_for_label }}" class="form-label mb-0">
+                    Usuario
+                </label>
+            </div>
+            <div class="col-md-9">
+                {{ form.username }}
+            </div>
+        </div>
+
+        <div class="row mb-3 align-items-center">
+            <div class="col-md-3">
+                <label for="{{ form.password.id_for_label }}" class="form-label mb-0">
+                    Contraseña
+                </label>
+            </div>
+            <div class="col-md-9">
+                {{ form.password }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="offset-md-3 col-md-9">
+                <button type="submit" class="btn btn-primary w-50">
+                    Entrar
+                </button>
+            </div>
+        </div>
     </form>
   </div>
 </div>
