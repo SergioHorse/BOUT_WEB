@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django import forms as django_forms
 from .models import Retoque, EstadoRetoque, ImputacionRetoque, CampoListado
+from zaq.models import Engine
 
 from simple_history.admin import SimpleHistoryAdmin
 
@@ -93,7 +94,7 @@ class RetoqueAdmin(SimpleHistoryAdmin):
 def obtener_opciones_campos(modelo, prefijo='', nivel=0):
     opciones_campos = []
 
-    for campo in modelo._meta.fields:
+    for campo in (list(modelo._meta.fields)+ list(modelo._meta.many_to_many)):
         nombre = f'{prefijo}{campo.name}'
         titulo = str(campo.verbose_name).capitalize()
 
@@ -128,7 +129,9 @@ class CampoListadoForm(django_forms.ModelForm):
 
         self.fields['campo'].choices = [
                                            ('', 'Seleccionar campo')
-                                       ] + obtener_opciones_campos(Retoque)
+                                       ] + obtener_opciones_campos(Retoque) + [
+            ('details_engine', 'Detalles seleccionados'),
+        ]
 
 
 @admin.register(CampoListado)

@@ -19,7 +19,7 @@ def check_category(sender, instance, **kwargs):
 
 @receiver(post_save, sender=Engine)
 def create_retoque(sender, instance, created, **kwargs):
-    if not instance.category or instance.category.name != 'Amarillo':
+    if not instance.category or instance.category.name != 'Amarillo' or instance.category.name != 'Rojo':
         return
 
     status = EstadoRetoque.objects.filter(name='Pendiente').first()

@@ -35,6 +35,8 @@ class Retoque(models.Model):
         related_name='retoques',
         verbose_name='Motor',
     )
+
+
     status = models.ForeignKey(
         EstadoRetoque,
         on_delete=models.PROTECT,
@@ -68,6 +70,10 @@ class Retoque(models.Model):
         if self.status and self.status.name == 'Terminado' and self.date_analysis is None:
             self.date_analysis = timezone.localdate()
         super().save(*args, **kwargs)
+
+    @property
+    def details_engine(self):
+        return ",".join(detail.name for detail in self.engine.details.all())
 
     def __str__(self):
         return f'{self.engine.n_engine} - {self.engine.reference}'

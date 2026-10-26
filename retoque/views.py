@@ -25,9 +25,20 @@ def _columnas_visibles():
     columnas = []
 
     for config in CampoListado.objects.filter(visible=True).order_by('orden', 'id'):
+
+        if config.campo == 'details_engine':
+            columnas.append({
+                'titulo':config.titulo,
+                'ruta':['details_engine'],
+                'es_fecha':False,
+            })
+            continue
+
         partes = config.campo.split('__')
         modelo_actual = Retoque
         campo = None
+
+        
 
         try:
             for indice, parte in enumerate(partes):
