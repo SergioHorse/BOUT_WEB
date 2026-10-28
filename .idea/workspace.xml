@@ -4,8 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="95156ea8-77d4-4629-bc5a-bc29b0505349" name="Changes" comment="Actualización en bbdd">
+    <list default="true" id="95156ea8-77d4-4629-bc5a-bc29b0505349" name="Changes" comment="posicionamiento centrado login">
+      <change afterPath="$PROJECT_DIR$/gestion_forms/context_processors.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gestion_forms/forms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gestion_forms/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/gestion_forms/completar_formulario.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/gestion_forms/formulario_correcto.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/gestion_forms/resultados_formulario.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BOUT_WEB/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/BOUT_WEB/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BOUT_WEB/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/BOUT_WEB/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bancos/signals.py" beforeDir="false" afterPath="$PROJECT_DIR$/bancos/signals.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bancos/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/bancos/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/components/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/navbar.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/registration/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/login.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -35,12 +46,12 @@
     &quot;assignee&quot;: &quot;SergioHorse&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/SergioHorse/BOUT_WEB.git",
-    "accountId": "d22419f4-adca-4c66-aae3-4ce8c06d9a5d"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/SergioHorse/BOUT_WEB.git&quot;,
+    &quot;accountId&quot;: &quot;d22419f4-adca-4c66-aae3-4ce8c06d9a5d&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -133,7 +144,9 @@
       <workItem from="1792421744999" duration="9806000" />
       <workItem from="1792770598450" duration="9662000" />
       <workItem from="1792914847657" duration="17978000" />
-      <workItem from="1792999098331" duration="2476000" />
+      <workItem from="1792999098331" duration="2990000" />
+      <workItem from="1793182900783" duration="3146000" />
+      <workItem from="1793189773616" duration="4544000" />
     </task>
     <task id="LOCAL-00001" summary="Creación en los admin los calendarios e historicos">
       <option name="closed" value="true" />
@@ -167,7 +180,15 @@
       <option name="project" value="LOCAL" />
       <updated>1793003495587</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="posicionamiento centrado login">
+      <option name="closed" value="true" />
+      <created>1793012056212</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1793012056212</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -177,6 +198,7 @@
     <MESSAGE value="Creación en los admin los calendarios e historicos" />
     <MESSAGE value="Mejoras en la app de retoque" />
     <MESSAGE value="Actualización en bbdd" />
-    <option name="LAST_COMMIT_MESSAGE" value="Actualización en bbdd" />
+    <MESSAGE value="posicionamiento centrado login" />
+    <option name="LAST_COMMIT_MESSAGE" value="posicionamiento centrado login" />
   </component>
 </project>

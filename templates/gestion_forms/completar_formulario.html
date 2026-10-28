@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card shadow-sm">
+
+        <div class="card-header d-flex justify-content-between align-items-center">
+        
+            <h3 class="mb-0">
+                {{ formulario_obj.nombre }}
+            </h3>
+        
+            <a
+                href="{% url 'gestion_forms:resultados_formulario' formulario_obj.id %}"
+                class="btn btn-outline-primary">
+                Ver resultados
+            </a>
+        
+        </div>
+
+        <div class="card-body">
+
+            {% if formulario_obj.descripcion %}
+                <p class="text-muted">
+                    {{ formulario_obj.descripcion }}
+                </p>
+            {% endif %}
+
+            <form method="post">
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+
+                {% for field in form %}
+
+                    <div class="mb-4">
+
+                        <label class="form-label fw-bold">
+                            {{ field.label }}
+
+                            {% if field.field.required %}
+                                <span class="text-danger">*</span>
+                            {% endif %}
+                        </label>
+
+                        {{ field }}
+
+                        {% if field.help_text %}
+                            <div class="form-text">
+                                {{ field.help_text }}
+                            </div>
+                        {% endif %}
+
+                        {% for error in field.errors %}
+                            <div class="text-danger mt-1">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
+
+                    </div>
+
+                {% endfor %}
+
+                <div class="d-flex justify-content-end">
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        Enviar formulario
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

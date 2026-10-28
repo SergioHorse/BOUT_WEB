@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'bancos.apps.BancosConfig',
     'rangefilter',
     'simple_history',
+    'gestion_forms',
 ]
 
 MIDDLEWARE = [
@@ -68,6 +69,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                'gestion_forms.context_processors.formularios_disponibles',
             ],
         },
     },

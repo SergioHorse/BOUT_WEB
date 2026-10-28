@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Formulario enviado
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card shadow-sm">
+
+        <div class="card-header bg-success text-white">
+            <h3 class="mb-0">
+                Formulario enviado
+            </h3>
+        </div>
+
+        <div class="card-body">
+
+            <div class="alert alert-success">
+                El formulario
+                <strong>{{ formulario_obj.nombre }}</strong>
+                se ha guardado correctamente.
+            </div>
+
+            <dl class="row">
+                <dt class="col-sm-3">
+                    Identificador
+                </dt>
+
+                <dd class="col-sm-9">
+                    {{ envio.id }}
+                </dd>
+
+                <dt class="col-sm-3">
+                    Fecha
+                </dt>
+
+                <dd class="col-sm-9">
+                    {{ envio.fecha_envio|date:"d/m/Y H:i" }}
+                </dd>
+
+                <dt class="col-sm-3">
+                    Usuario
+                </dt>
+
+                <dd class="col-sm-9">
+                    {{ envio.usuario }}
+                </dd>
+            </dl>
+
+            <hr>
+
+            <h5>Respuestas registradas</h5>
+
+            {% for respuesta in envio.respuestas.all %}
+
+                <div class="border rounded p-3 mb-3">
+
+                    <strong>
+                        {{ respuesta.pregunta_texto }}
+                    </strong>
+
+                    <div class="mt-2">
+
+                        {% if respuesta.tipo_respuesta == "opcion_multiple" %}
+
+                            <ul class="mb-0">
+                                {% for opcion in respuesta.valor %}
+                                    <li>
+                                        {{ opcion.texto }}
+                                    </li>
+                                {% empty %}
+                                    <li>Sin respuesta</li>
+                                {% endfor %}
+                            </ul>
+
+                        {% elif respuesta.tipo_respuesta == "opcion_unica" %}
+
+                            {% if respuesta.valor %}
+                                {{ respuesta.valor.texto }}
+                            {% else %}
+                                Sin respuesta
+                            {% endif %}
+
+                        {% elif respuesta.tipo_respuesta == "binario" %}
+
+                            {% if respuesta.valor == "si" %}
+                                Sí
+                            {% elif respuesta.valor == "no" %}
+                                No
+                            {% else %}
+                                Sin respuesta
+                            {% endif %}
+
+                        {% else %}
+
+                            {{ respuesta.valor|default:"Sin respuesta" }}
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            {% empty %}
+
+                <p class="text-muted">
+                    Este envío no contiene respuestas.
+                </p>
+
+            {% endfor %}
+
+            <form
+                method="get"
+                action="{% url 'gestion_forms:completar_formulario' formulario_obj.id %}"
+                class="d-flex justify-content-end"
+            >
+                <button type="submit" class="btn btn-primary">
+                    Completar otro formulario
+                </button>
+            </form>
+
+        
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

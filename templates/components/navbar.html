@@ -95,6 +95,54 @@
                         BANCOS
                     </a>
                 </li>
+                
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link" href="{% url 'gestion_forms:completar_formulario' formulario_id=1 %}">#}
+{#                        FORMULARIOS#}
+{#                    </a>#}
+{#                </li>#}
+                <li class="nav-item dropdown">
+
+                    <a
+                        class="nav-link dropdown-toggle"
+                        href="#"
+                        id="formulariosDropdown"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                    >
+                        FORMULARIOS
+                    </a>
+                
+                    <ul
+                        class="dropdown-menu"
+                        aria-labelledby="formulariosDropdown"
+                    >
+                
+                        {% for formulario in formularios_disponibles %}
+                
+                            <li>
+                                <a
+                                    class="dropdown-item"
+                                    href="{% url 'gestion_forms:completar_formulario' formulario.id %}"
+                                >
+                                    {{ formulario.nombre }}
+                                </a>
+                            </li>
+                
+                        {% empty %}
+                
+                            <li>
+                                <span class="dropdown-item-text text-muted">
+                                    No hay formularios disponibles
+                                </span>
+                            </li>
+                
+                        {% endfor %}
+                
+                    </ul>
+                
+                </li>
 
             </ul>
 

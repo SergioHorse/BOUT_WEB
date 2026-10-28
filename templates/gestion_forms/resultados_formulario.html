@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Resultados de {{ formulario_obj.nombre }}
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid mt-4">
+
+    <div class="card shadow-sm">
+
+        <div class="card-header d-flex justify-content-between align-items-center">
+
+            <div>
+                <h3 class="mb-0">
+                    Resultados: {{ formulario_obj.nombre }}
+                </h3>
+
+                <small class="text-muted">
+                    {{ filas|length }}
+                    envío{{ filas|length|pluralize }}
+                </small>
+            </div>
+
+            <a
+                href="{% url 'gestion_forms:completar_formulario' formulario_obj.id %}"
+                class="btn btn-primary"
+            >
+                Nuevo envio
+            </a>
+
+        </div>
+
+        <div class="card-body">
+        
+            <form method="get" class="mb-4">
+                <div class="row g-2 align-items-end">
+            
+                    <div class="col-md-6 col-lg-3">
+                        <label for="buscar" class="form-label">
+                            Buscar en los resultados
+                        </label>
+            
+                        <input
+                            type="search"
+                            id="buscar"
+                            name="buscar"
+                            class="form-control"
+                            value="{{ texto_busqueda }}"
+                            placeholder="N.º motor, referencia, usuario..."
+                        >
+                    </div>
+            
+                    <div class="col-md-3 col-lg-2">
+                        <label for="fecha_desde" class="form-label">
+                            Desde
+                        </label>
+            
+                        <input
+                            type="date"
+                            id="fecha_desde"
+                            name="fecha_desde"
+                            class="form-control"
+                            value="{{ fecha_desde }}"
+                        >
+                    </div>
+            
+                    <div class="col-md-3 col-lg-1">
+                        <label for="hora_desde" class="form-label">
+                            Hora
+                        </label>
+            
+                        <input
+                            type="time"
+                            id="hora_desde"
+                            name="hora_desde"
+                            class="form-control"
+                            value="{{ hora_desde }}"
+                        >
+                    </div>
+            
+                    <div class="col-md-3 col-lg-2">
+                        <label for="fecha_hasta" class="form-label">
+                            Hasta
+                        </label>
+            
+                        <input
+                            type="date"
+                            id="fecha_hasta"
+                            name="fecha_hasta"
+                            class="form-control"
+                            value="{{ fecha_hasta }}"
+                        >
+                    </div>
+            
+                    <div class="col-md-3 col-lg-1">
+                        <label for="hora_hasta" class="form-label">
+                            Hora
+                        </label>
+            
+                        <input
+                            type="time"
+                            id="hora_hasta"
+                            name="hora_hasta"
+                            class="form-control"
+                            value="{{ hora_hasta }}"
+                        >
+                    </div>
+            
+                    <div class="col-auto">
+                        <button
+                            type="submit"
+                            class="btn btn-primary"
+                        >
+                            Buscar
+                        </button>
+                    </div>
+            
+                    {% if texto_busqueda or fecha_desde or fecha_hasta or hora_desde or hora_hasta %}
+                        <div class="col-auto ms-lg-auto">
+                            <a
+                                class="btn btn-outline-secondary"
+                                href="{% url 'gestion_forms:resultados_formulario' formulario_obj.id %}"
+                            >
+                                Limpiar
+                            </a>
+                        </div>
+                    {% endif %}
+            
+                </div>
+            </form>
+
+            {% if filas %}
+
+                <div class="table-responsive">
+
+                    <table class="table table-bordered table-hover align-middle">
+
+                        <thead class="table-light">
+                            <tr>
+                                <th scope="col">
+                                    Fecha de envío
+                                </th>
+
+                                <th scope="col">
+                                    Usuario
+                                </th>
+
+                                {% for pregunta in preguntas %}
+                                    <th scope="col">
+                                        {{ pregunta.texto }}
+                                    </th>
+                                {% endfor %}
+
+                                <th scope="col">
+                                    Acciones
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            {% for fila in filas %}
+
+                                <tr>
+                                    <td class="text-nowrap">
+                                        {{ fila.envio.fecha_envio|date:"d/m/Y H:i" }}
+                                    </td>
+
+                                    <td>
+                                        {{ fila.envio.usuario|default:"Anónimo" }}
+                                    </td>
+
+                                    {% for valor in fila.valores %}
+                                        <td>
+                                            {{ valor }}
+                                        </td>
+                                    {% endfor %}
+
+                                    <td>
+                                        <a
+                                            href="{% url 'gestion_forms:formulario_correcto' fila.envio.id %}"
+                                            class="btn btn-sm btn-outline-primary"
+                                        >
+                                            Ver
+                                        </a>
+                                    </td>
+                                </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
