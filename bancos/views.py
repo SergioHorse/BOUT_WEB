@@ -161,7 +161,7 @@ def summary(request):
 class RodajeDetailView(DetailView):
     model = Rodaje
     template_name = 'bancos/detail.html'
-    context_object_name = 'bancos'
+    context_object_name = 'rodaje'
 
     def get_queryset(self):
         return Rodaje.objects.select_related(
